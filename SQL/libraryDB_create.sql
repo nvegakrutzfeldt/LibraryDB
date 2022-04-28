@@ -62,3 +62,18 @@ CREATE TABLE `borrowed_book` (
   CONSTRAINT `borrowed_book_fk_book_isbn` FOREIGN KEY (`book_isbn`) REFERENCES `books` (`book_isbn`),
   CONSTRAINT `borrowed_book_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
+
+CREATE TABLE `genre` (
+  `genre_id` int NOT NULL,
+  `genre_name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`genre_id`),
+  UNIQUE KEY `genre_id_UNIQUE` (`genre_id`)
+);
+
+CREATE TABLE `book_genre` (
+  `genre_id` int NOT NULL,
+  `book_isbn` int NOT NULL,
+  PRIMARY KEY(`genre_id`, `book_isbn`),
+  CONSTRAINT `book_genre_fk_genre_id` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`),
+  CONSTRAINT `book_genre_fk_book_isbn` FOREIGN KEY (`book_isbn`) REFERENCES `books` (`book_isbn`)
+);
