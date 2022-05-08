@@ -1,6 +1,7 @@
 DROP VIEW `user_view`;
 DROP VIEW `borrowed_books_view`;
 DROP VIEW `book_catalog_view`;
+DROP TRIGGER `borrow_limit`;
 DROP TABLE `borrowed_book`;
 DROP TABLE `users`;
 DROP TABLE `address`;

@@ -6,17 +6,17 @@ CREATE VIEW `book_catalog_view` AS
             GROUP_CONCAT(DISTINCT `genres`.`genre_name` SEPARATOR ', ') AS 'Genre(s)',
             `books`.`book_description` AS 'Description',
             `books`.`book_publisher` AS 'Publisher',
-            `books`.`book_amount_owned` AS 'Amount_owned',
+            `books`.`book_copies_owned` AS 'Copies_owned',
             (
                 SELECT COUNT(*)
                     FROM `borrowed_book`
                     WHERE ISBN = `borrowed_book`.`book_isbn`
-            ) AS 'Amount_borrowed',
+            ) AS 'Copies_borrowed',
             (
                 SELECT
-                    (SELECT Amount_owned)
-                   -(SELECT Amount_borrowed)
-            ) AS 'Amount_available'
+                    (SELECT Copies_owned)
+                   -(SELECT Copies_borrowed)
+            ) AS 'Copies_available'
         FROM `books`
         INNER JOIN `book_author`
             ON `books`.`book_isbn` = `book_author`.`book_isbn`
