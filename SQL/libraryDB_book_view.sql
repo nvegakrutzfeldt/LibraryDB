@@ -5,7 +5,7 @@ CREATE VIEW `book_catalog_view` AS
             GROUP_CONCAT(DISTINCT `authors`.`author_name` SEPARATOR ', ') AS 'Author(s)',
             GROUP_CONCAT(DISTINCT `genres`.`genre_name` SEPARATOR ', ') AS 'Genre(s)',
             `books`.`book_description` AS 'Description',
-            `publishers`.`publisher_name` AS 'Publisher',
+            `books`.`book_publisher` AS 'Publisher',
             `books`.`book_amount_owned` AS 'Amount_owned',
             (
                 SELECT COUNT(*)
@@ -26,8 +26,6 @@ CREATE VIEW `book_catalog_view` AS
             ON `books`.`book_isbn` = `book_genre`.`book_isbn`
         INNER JOIN `genres`
             ON `genres`.`genre_id` = `book_genre`.`genre_id`
-        INNER JOIN `publishers`
-            ON `books`.`publisher_id` = `publishers`.`publisher_id`
         GROUP BY ISBN
     )
-;
+ORDER BY `books`.`book_title`;
